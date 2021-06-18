@@ -1,0 +1,15 @@
+name: GitHub Actions Testing
+on: [push]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    name: Testing Ansible
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+      - name: Perform ansible playbook
+        uses: euclid1990/actions-ansible@master
+        with:
+          playbook: ./testing/playbook.yml
+          inventory: ./testing/production.yml

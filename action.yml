@@ -1,0 +1,22 @@
+name: 'Ansible Playbook Runner'
+description: 'Run an Ansible playbook'
+
+branding:
+  icon: arrow-up-circle
+  color: black
+
+inputs:
+  inventory:
+    description: 'Ansible inventory to use'
+    required: true
+    default: inventory.yml
+  playbook:
+    description: 'Ansible playbook to run'
+    required: true
+    default: playbook.yml
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.inventory }}
+    - ${{ inputs.playbook }}
