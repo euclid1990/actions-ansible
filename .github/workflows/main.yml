@@ -2,7 +2,25 @@ name: GitHub Actions Testing
 on: [push]
 
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Build and Push Docker Image
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Build and push Docker images
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          tags: euclid1990/actions-ansible:v2,euclid1990/actions-ansible:latest
   test:
+    needs: build
     runs-on: ubuntu-latest
     name: Testing Ansible
     steps:
@@ -12,4 +30,4 @@ jobs:
         uses: euclid1990/actions-ansible@master
         with:
           playbook: ./testing/playbook.yml
-          inventory: ./testing/production.yml
+          inventory: ./testing/inventory.yml

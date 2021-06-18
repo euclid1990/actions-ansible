@@ -10,7 +10,10 @@ RUN echo "===> Update packages..."  && \
     pip3 install 'ansible==2.10.7'                  && \
     apt-get install -y sshpass openssh-client rsync && \
     echo "===> Adding hosts for convenience..."     && \
-    echo 'localhost' > /etc/ansible/hosts
+    echo 'localhost' > /etc/ansible/hosts           && \
+    echo "===> Clean temporary..."                  && \
+    apt-get clean                                   && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 COPY entrypoint.sh /entrypoint.sh
 

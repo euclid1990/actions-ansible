@@ -18,7 +18,7 @@ jobs:
     - name: Check out repository code
       uses: actions/checkout@v2
     - name: Perform ansible playbook to deploy
-      uses: actions-ansible@v1
+      uses: actions-ansible@v2
       with:
         playbook: ./path-to-directory/playbook.yml
         inventory: ./path-to-directory/production.yml
